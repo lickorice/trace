@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  room: MyString
+  vacant: false
+  price: 1
+  tier: MyString
+  hospital_id: MyString
+
+two:
+  room: MyString
+  vacant: false
+  price: 1
+  tier: MyString
+  hospital_id: MyString

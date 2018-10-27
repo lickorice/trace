@@ -1,0 +1,42 @@
+<%= form_with(model: bed, local: true) do |form| %>
+  <% if bed.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(bed.errors.count, "error") %> prohibited this bed from being saved:</h2>
+
+      <ul>
+      <% bed.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :room %>
+    <%= form.text_field :room, id: :bed_room %>
+  </div>
+
+  <div class="field">
+    <%= form.label :vacant %>
+    <%= form.check_box :vacant, id: :bed_vacant %>
+  </div>
+
+  <div class="field">
+    <%= form.label :price %>
+    <%= form.number_field :price, id: :bed_price %>
+  </div>
+
+  <div class="field">
+    <%= form.label :tier %>
+    <%= form.text_field :tier, id: :bed_tier %>
+  </div>
+
+  <div class="field">
+    <%= form.label :hospital_id %>
+    <%= form.text_field :hospital_id, id: :bed_hospital_id %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
