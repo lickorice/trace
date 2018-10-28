@@ -1,6 +1,80 @@
-<h1>This is the main page. See the current hospital stats here:</h1>
-<%=@hospital.name%> <br>
-<%=@hospital.contact%> <br>
-<%=@beds_current%> / <%=@beds_total%> <br>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Trace</title>
+</head>
 
-<h2> <%=link_to "Search For a Room", search_index_path%> </h2>
+<body>
+
+    <main role="main">
+
+      <!-- Main jumbotron for a primary marketing message or call to action -->
+        <div class="container-fluid align-middle rounded bg-white container-main">
+
+        <div class="container">  
+
+          <h1 class="display-5 text-center">DETAILS AND STATISTICS</h1><br>
+          <h1></h1><br>
+        </div>
+
+        <div class="container">
+
+        <%= yield %>
+        <!-- Example row of columns -->
+        <div class="row">
+        <div class="col-md-4">
+            <h3 class="text-center">Hospital Name:</h3>
+            <h4 class="text-center"><%=@hospital.name%></h4>
+        </div>
+        <div class="col-md-4">
+            <h3 class="text-center">Hospital Contact:</h3>
+            <h4 class="text-center"><%=@hospital.contact%></h4>
+        </div>
+        <div class="col-md-4">
+            <h3 class="text-center">Occupied Beds:</h3>
+            <h4 class="text-center"><%=@beds_current%> / <%=@beds_total%></h4>
+        </div>
+        </div>
+
+        <hr>
+
+        <div class="container">
+          <h5 class="text-center">
+            <%arr_service = Bed.where "hospital_id = ? AND tier = ?", @hospital.hospital_id, "service"%>
+            <%arr_semi = Bed.where "hospital_id = ? AND tier = ?", @hospital.hospital_id, "semi"%>
+            <%arr_private = Bed.where "hospital_id = ? AND tier = ?", @hospital.hospital_id, "private"%>
+            <%arr_icu = Bed.where "hospital_id = ? AND tier = ?", @hospital.hospital_id, "icu"%>
+
+            <%arr_service_c = Bed.where "hospital_id = ? AND tier = ? AND vacant = ?", @hospital.hospital_id, "service", true%>
+            <%arr_semi_c = Bed.where "hospital_id = ? AND tier = ? AND vacant = ?", @hospital.hospital_id, "semi", true%>
+            <%arr_private_c = Bed.where "hospital_id = ? AND tier = ? AND vacant = ?", @hospital.hospital_id, "private", true%>
+            <%arr_icu_c = Bed.where "hospital_id = ? AND tier = ? AND vacant = ?", @hospital.hospital_id, "icu", true%>
+
+            <div class="container">
+              Occupied Service Wards : <%=arr_service_c.length%> / <%=arr_service.length%>
+            </div>
+            <div class="container">
+              Occupied Semi-Private Rooms : <%=arr_semi_c.length%> / <%=arr_semi.length%>
+            </div>
+            <div class="container">
+              Occupied Private Rooms : <%=arr_private_c.length%> / <%=arr_private.length%>
+            </div>
+            <div class="container">
+              Occupied Intensive Care Units : <%=arr_icu_c.length%> / <%=arr_icu.length%>
+            </div>
+          </h5>
+        </div>
+
+        <hr>
+
+        </div>
+
+    </main>
+
+    <br><br>
+    <div class="text-center"> 
+        <%=button_to "Search For a Room", search_index_path, :method => "get", :class => "btn btn-primary btn-lg"%>
+    </div>
+
+</body>
+</html> 

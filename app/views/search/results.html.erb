@@ -1,8 +1,26 @@
-<h1>Search#index</h1>
-<p>Find me in app/views/search/index.html.erb</p>
+<div class="container align-middle bg-white rounded container-dialog">
+    <div class="container">
+      <div class="form-group">
+        <div class="text-center">
+            <h1>There are available bedspaces.</h1>
+            <hr>
+            
+            <h5>
+            <% @beds.each do |bed| %>
+                <div class="results-container rounded text-left">
+                    <strong>Room No.</strong> <%= bed.room %> (<%= @raw_type %>) |
+                    <strong>Price:</strong> <%= bed.price %>
+                </div>
+            <% end %>
+            
+            <hr>
+            <%# back button here: %>
+            <%= button_to "Back", main_index_path, :class => "btn btn-primary", :method => "get"%>
+            </h5>
+            
+        </div>
+      </div>
+    </div>
+</div>
 
-<% @beds.each do |bed| %>
-    <strong>Room No.</strong> <%= bed.room %> <br>
-    <strong>Price:</strong> <%= bed.price %> <br>
-    <strong>Tier:</strong> <%= @raw_type %> <br>
-<% end %>
+

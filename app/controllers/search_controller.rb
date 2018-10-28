@@ -1,10 +1,11 @@
 class SearchController < ApplicationController
   def index
-    @options = ["Service Ward", "Semi-Private Room", "Private Room"]
+    @options = ["Service Ward", "Semi-Private Room", "Private Room", "ICU"]
   end
 
   def refer
-    @hospitals = Hospital.where.not hospital_id: Hospital.first.hospital_id
+    @hospitals = Hospital.where.not hospital_id: Hospital.first.hospital_id 
+    @hospitals = @hospitals.sort_by {|hospital| hospital.distance}
   end
 
   def results

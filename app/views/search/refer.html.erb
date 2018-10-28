@@ -1,21 +1,43 @@
-<h1>Search#refer</h1>
-<p>Find me in app/views/search/refer.html.erb</p>
 
-<% @hospitals.each do |hospital| %>
+<div class="container align-middle bg-white rounded container-dialog">
+    <div class="container">
+      <div class="form-group">
+        <h1 class="text-center">There are no more available bedspaces.</h1>
 
-    <% arr_bed_service = Bed.where "hospital_id = ? AND tier = ?", hospital.hospital_id, "service" %>
-    <% arr_bed_semi = Bed.where "hospital_id = ? AND tier = ?", hospital.hospital_id, "semi" %>
-    <% arr_bed_private = Bed.where "hospital_id = ? AND tier = ?", hospital.hospital_id, "private" %>
-    <% arr_bed_icu = Bed.where "hospital_id = ? AND tier = ?", hospital.hospital_id, "icu" %>
+        <hr>
+        <h5 class="text-center"> Please refer the patient to one of the hospitals below: </h5>
+        <hr>
+        
+        <h5 class="text-center">
+        <% @hospitals.each do |hospital| %>
 
-    <strong>Hospital:</strong> <%= hospital.name %> <br>
-    <strong>Service Rooms:</strong> <%= arr_bed_service.length %> <br>
-    <strong>Semi-Private Rooms:</strong> <%= arr_bed_semi.length %> <br>
-    <strong>Private Rooms:</strong> <%= arr_bed_private.length %> <br>
-    <strong>ICU Rooms:</strong> <%= arr_bed_icu.length %> <br>
-    <strong>Contact:</strong> <%= hospital.contact %> <br>
+        <div class="results-container rounded">
+        <% arr_bed_service = Bed.where "hospital_id = ? AND tier = ?", hospital.hospital_id, "service" %>
+        <% arr_bed_semi = Bed.where "hospital_id = ? AND tier = ?", hospital.hospital_id, "semi" %>
+        <% arr_bed_private = Bed.where "hospital_id = ? AND tier = ?", hospital.hospital_id, "private" %>
+        <% arr_bed_icu = Bed.where "hospital_id = ? AND tier = ?", hospital.hospital_id, "icu" %>
+        <% arr_bed_service_c = Bed.where "hospital_id = ? AND tier = ? AND vacant = ?", hospital.hospital_id, "service", false %>
+        <% arr_bed_semi_c = Bed.where "hospital_id = ? AND tier = ? AND vacant = ?", hospital.hospital_id, "semi", false %>
+        <% arr_bed_private_c = Bed.where "hospital_id = ? AND tier = ? AND vacant = ?", hospital.hospital_id, "private", false %>
+        <% arr_bed_icu_c = Bed.where "hospital_id = ? AND tier = ? AND vacant = ?", hospital.hospital_id, "icu", false %>
 
-<% end %>
+        <strong> <%= hospital.name %> </strong> <br>
+        <h6><%= hospital.distance %> km away</h6> <br> 
+        <strong>Occupied Service Rooms:</strong> <%= arr_bed_service_c.length%> / <%= arr_bed_service.length %> <br>
+        <strong>Occupied Semi-Private Rooms:</strong> <%= arr_bed_semi_c.length%> / <%= arr_bed_semi.length %> <br>
+        <strong>Occupied Private Rooms:</strong> <%= arr_bed_private_c.length%> / <%= arr_bed_private.length %> <br>
+        <strong>Occupied ICU Rooms:</strong> <%= arr_bed_icu_c.length%> / <%= arr_bed_icu.length %> <br>
+        <strong>Contact:</strong> <%= hospital.contact %> <br>
+        </div>
 
-<%# back button here: %>
-<%= link_to "Back", main_index_path%>
+        <% end %>
+        
+        <hr>
+        <%# back button here: %>
+        <%= link_to "Back", main_index_path%>
+        </h5>
+      </div>
+    </div>
+</div>
+
+
