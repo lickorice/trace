@@ -4,7 +4,18 @@ class SearchController < ApplicationController
   end
 
   def refer
-    @hospitals = Hospital.where.not hospital_id: Hospital.first.hospital_id 
+    @target = params[:target]
+    @hospitals = Hospital.where.not hospital_id: Hospital.first.hospital_id
+    new_hospitals = []
+    @hospitals.each do |hospital|
+      bed_count_total = Bed.where "hospital_id = ? AND tier = ?", hospital.hospital_id, @target
+      bed_count_curr = Bed.where "hospital_id = ? AND tier = ? AND vacant = ?", hospital.hospital_id, @target, false
+      if bed_count_curr.length == bed_count_total.length
+        next
+      end
+      new_hospitals.push(hospital)
+    end
+    @hospitals = new_hospitals
     @hospitals = @hospitals.sort_by {|hospital| hospital.distance}
   end
 
@@ -23,7 +34,7 @@ class SearchController < ApplicationController
     @beds = Bed.where "hospital_id = ? AND vacant = ? AND tier = ?", Hospital.first.hospital_id, true, room_id
 
     if @beds.length == 0
-      redirect_to search_refer_url
+      redirect_to search_refer_url target:room_id
     end
   end
 end
