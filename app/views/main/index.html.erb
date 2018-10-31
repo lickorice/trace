@@ -11,28 +11,22 @@
       <!-- Main jumbotron for a primary marketing message or call to action -->
         <div class="container-fluid align-middle rounded bg-white container-main">
 
-        <div class="container">  
-
-          <h1 class="display-5 text-center">DETAILS AND STATISTICS</h1><br>
-          <h1></h1><br>
-        </div>
-
         <div class="container">
 
         <%= yield %>
         <!-- Example row of columns -->
         <div class="row">
         <div class="col-md-4">
-            <h3 class="text-center">Hospital Name:</h3>
             <h4 class="text-center"><%=@hospital.name%></h4>
+            <h6 class="text-center">Hospital Name</h6>
         </div>
         <div class="col-md-4">
-            <h3 class="text-center">Hospital Contact:</h3>
             <h4 class="text-center"><%=@hospital.contact%></h4>
+            <h6 class="text-center">Contact</h6>
         </div>
         <div class="col-md-4">
-            <h3 class="text-center">Occupied Beds:</h3>
             <h4 class="text-center"><%=@beds_current%> / <%=@beds_total%></h4>
+            <h6 class="text-center">Total Occupied Beds</h6>
         </div>
         </div>
 
@@ -45,10 +39,10 @@
             <%arr_private = Bed.where "hospital_id = ? AND tier = ?", @hospital.hospital_id, "private"%>
             <%arr_icu = Bed.where "hospital_id = ? AND tier = ?", @hospital.hospital_id, "icu"%>
 
-            <%arr_service_c = Bed.where "hospital_id = ? AND tier = ? AND vacant = ?", @hospital.hospital_id, "service", true%>
-            <%arr_semi_c = Bed.where "hospital_id = ? AND tier = ? AND vacant = ?", @hospital.hospital_id, "semi", true%>
-            <%arr_private_c = Bed.where "hospital_id = ? AND tier = ? AND vacant = ?", @hospital.hospital_id, "private", true%>
-            <%arr_icu_c = Bed.where "hospital_id = ? AND tier = ? AND vacant = ?", @hospital.hospital_id, "icu", true%>
+            <%arr_service_c = Bed.where "hospital_id = ? AND tier = ? AND vacant = ?", @hospital.hospital_id, "service", false%>
+            <%arr_semi_c = Bed.where "hospital_id = ? AND tier = ? AND vacant = ?", @hospital.hospital_id, "semi", false%>
+            <%arr_private_c = Bed.where "hospital_id = ? AND tier = ? AND vacant = ?", @hospital.hospital_id, "private", false%>
+            <%arr_icu_c = Bed.where "hospital_id = ? AND tier = ? AND vacant = ?", @hospital.hospital_id, "icu", false%>
 
             <div class="container">
               Occupied Service Wards : <%=arr_service_c.length%> / <%=arr_service.length%>
@@ -64,8 +58,6 @@
             </div>
           </h5>
         </div>
-
-        <hr>
 
         </div>
 

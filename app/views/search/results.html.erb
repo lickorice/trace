@@ -2,14 +2,14 @@
     <div class="container">
       <div class="form-group">
         <div class="text-center">
-            <h1>There are available bedspaces.</h1>
+            <h1>There are available rooms.</h1>
             <hr>
             
             <h5>
             <% @beds.each do |bed| %>
                 <div class="results-container rounded text-left">
                     <strong>Room No.</strong> <%= bed.room %> (<%= @raw_type %>) |
-                    <strong>Price:</strong> <%= bed.price %>
+                    <strong>Price:</strong> <%= bed.price %> Php/Day
                 </div>
             <% end %>
             

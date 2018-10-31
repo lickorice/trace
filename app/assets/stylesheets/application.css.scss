@@ -20,6 +20,11 @@
      background-color: #239fbc
  }
 
+ .btn-primary {
+     color: #239fbc;
+     background-color: white;
+ }
+
  .container-main {
     padding-top: 10px;
     padding-bottom: 10px;
@@ -61,6 +66,17 @@
      margin-top: 20px;
  }
 
+ .navbar-brand {
+    text-decoration: none;
+}
+
  .navbar-brand:hover {
-     text-decoration: none;
+    text-decoration: none;
+ }
+
+ .tagline {
+    font-size: 48px;
+    font-family: 'Roboto';
+    font-weight: 100;
+    color: white;
  }
